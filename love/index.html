@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>111</title>
+	<link rel="stylesheet" href="default.css">
+
+</head>
+
+<body>
+	<!-- <audio id="music" src="love.mp3" controls autoplay preload="auto" style="display: none;" loop></audio> -->
+	<!-- <iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe> -->
+
+	<div id="mainDiv">
+		<div id="content" style="width: 1110px; height: 625px; margin-top: 156px; margin-left: 405px;">
+			<div id="code">
+				<span class="comments">/**</span>
+				<br>
+				<span class="comments">*2019—7-4</span>
+				<br>
+				*<span class="comments" id="nowDate"></span>
+				<br>
+				<span class="comments">**/</span> <br><br>
+
+				<span>Boy name = <span class="keyword">Mr</span> SUN</span><br>
+
+				<span>Girl name = <span class="keyword">Mrs</span> MA</span><br>
+
+				<span><span class="keyword">亲爱的</span>,我们在一起一个月啦;</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 20px;">
+					<use xlink:href="#icon-xiaolian"></use>
+				</svg>
+				<br>
+
+				<span class="comments">记得6.5号刚刚认识<span class="keyword">亲爱的</span>.</span><br>
+
+				<span class="comments">看了<span class="keyword">亲爱的</span>照片感觉好漂亮 好可爱哦.</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 20px;">
+					<use xlink:href="#icon-face7"></use>
+				</svg>
+				<br>
+
+				<span>我还在想<span class="keyword">亲爱的</span>是怎么看上我的.</span><br>
+				<span class="comments">可能是感觉我人比较好吧</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 20px;">
+					<use xlink:href="#icon-haixiu"></use>
+				</svg> <span class="keyword">嘿嘿嘿</span>
+				<br>
+
+				<span class="comments">记得6.11号第一次见到<span class="keyword">亲爱的</span>.</span>
+				<br>
+				The boy can not be separated the girl;<br>
+				<span class="comments">// At the same time.</span>
+				<br>
+				The girl can not be separated the boy;<br>
+				<span class="comments">// Both wind and snow all over the sky.</span>
+				<br>
+				<span class="comments">// Whether on foot or 5 kilometers.</span>
+				<br>
+				<span class="keyword">The boy</span>
+				very <span class="keyword">happy</span>
+				;<br>
+				<span class="keyword">The girl</span>
+				is also very <span class="keyword">happy</span>
+				;<br>
+				<span class="placeholder">
+					<span class="comments">// Whether it is right now</span>
+					<br>
+					<span class="placeholder">
+						<span class="comments">// Still in the distant future.</span>
+						<br>
+						<span class="placeholder">
+							The boy has but one dream;<br>
+							<span class="comments">// The boy wants the girl could well have been
+								happy.</span>
+							<br>
+							<br>
+							<br>
+							I want to say:<br>
+							Baby, I love you forever;<br>
+						</span>
+					</span>
+				</span>
+			</div>
+			<div id="loveHeart">
+				<canvas id="garden" width="670" height="625"></canvas>
+				<div id="words">
+					<div id="messages">
+						亲爱的，这是我们相爱在一起的时光。
+
+						<div id="elapseClock">
+							<span class="digit">2301</span>
+							days <span class="digit">14</span>
+							hours <span class="digit">51</span>
+							minutes <span class="digit">44</span>
+							seconds
+						</div>
+					</div>
+					<div id="loveu">
+						爱你直到永永远远。<br>
+						<div class="signature">你的麦芽糖</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="font/iconfont.js"></script>
+	<script src="jquery.js"></script>
+	<script src="garden.js"></script>
+	<script src="functions.js"></script>
+	<script>
+		initDate();
+
+		var together = new Date(2019, 6, 4, 21, 32, 0);
+
+		// if (!IsPC()) {
+		// 	var music = document.getElementById("music");
+
+		// 	//	移动端自动播放
+		// 	document.addEventListener("touchstart", function (e) {
+		// 		music.play();
+		// 	}, false);
+		// 	//	兼容微信浏览器自动播放
+		// 	document.addEventListener("WeixinJSBridgeReady", function () {
+		// 		audio.play();
+		// 	}, false);
+
+		// 	window.webView && (window.webView.mediaPlaybackRequiresUserAction = NO);
+		// 	window.mWebview && (window.mWebview.getSettings().setMediaPlaybackRequiresUserGesture(false));
+		// }
+
+
+		// setup garden
+		$loveHeart = $("#loveHeart");
+		$garden = $("#garden");
+		gardenCanvas = $garden[0];
+		gardenCanvas.width = $("#loveHeart").width();
+		gardenCanvas.height = $("#loveHeart").height()
+		gardenCtx = gardenCanvas.getContext("2d");
+		gardenCtx.globalCompositeOperation = "lighter";
+		garden = new Garden(gardenCtx, gardenCanvas);
+
+		$("#content").css("width", $loveHeart.width() + $("#code").width());
+		$("#content").css("height", Math.max($loveHeart.height(), $("#code").height()));
+		$("#content").css("margin-top", Math.max(($window.height() - $("#content").height()) / 2, 10));
+		$("#content").css("margin-left", Math.max(($window.width() - $("#content").width()) / 2, 10));
+
+
+		setTimeout(function () {
+			startHeartAnimation();
+		}, 5000);
+
+		timeElapse(together);
+		setInterval(function () {
+			timeElapse(together);
+		}, 500);
+
+		adjustCodePosition();
+		// $("#code").typewriter();
+
+		// renderLoop
+		setInterval(function () {
+			garden.render();
+		}, Garden.options.growSpeed);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Test</title>
+</head>
+
+<body>
+  啊啊啊啊啊啊亲爱的
+  <iframe allow="autoplay" src="love/love.mp3" style="display: none;"></iframe>
+  <audio id="music" src="love/love.mp3" controls preload="auto" style="display: none;"></audio>
+  <script src="love/jquery.js"></script>
+  <script>
+    $(function () {
+      if (!IsPC()) {
+        var music = document.getElementById("music");
+
+        //移动端自动播放
+        document.addEventListener("touchstart", function (e) {
+          music.play();
+        }, false);
+        // 兼容微信浏览器自动播放
+        document.addEventListener("WeixinJSBridgeReady", function () {
+          audio.play();
+        }, false);
+
+        window.webView && (window.webView.mediaPlaybackRequiresUserAction = NO);
+        window.mWebview && (window.mWebview.getSettings().setMediaPlaybackRequiresUserGesture(false));
+      }
+    });
+
+    function IsPC() {
+      var userAgentInfo = navigator.userAgent;
+      var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+      var flag = true;
+      for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) { flag = false; break; }
+      }
+      return flag;
+    }
+
+  </script>
+</body>
+
+</html>

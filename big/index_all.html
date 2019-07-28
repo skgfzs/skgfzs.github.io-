@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>首页</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      background: url('images/bg_all.jpg') no-repeat;
+      background-size: 100% 100%;
+      /* padding: 10px; */
+    }
+
+    #app {
+      height: 100%;
+    }
+
+    #top {
+      height: 40%;
+    }
+
+    #bottom {
+      height: 60%;
+      /* display: flex; */
+    }
+
+    #bottomLeft,
+    #bottomRight {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="top">
+    </div>
+    <div id="bottom">
+      <!-- <div id="bottomLeft"></div> -->
+      <!-- <div id="bottomRight"></div> -->
+    </div>
+  </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/echarts-gl.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      all: 0,
+      success: 0,
+      error: 0,
+      cityCount: [],
+      appName: [],
+      type: []
+    },
+    mounted: function () {
+      this.getSum();
+      this.initEchartTop();
+      this.initEchartBottom();
+      // this.initEchartBottomRight();
+    },
+    methods: {
+      //获取总数
+      getSum: function () {
+        //总数
+        var start = localStorage.start ? +localStorage.start + this.getRandomNumberByRange(300, 400) : 15000,
+          end = localStorage.end ? +localStorage.start + this.getRandomNumberByRange(300, 400) : 20000,
+          ratio = this.getRandomNumberByRange(85, 95);
+
+        this.all = this.getRandomNumberByRange(start, end);
+        this.success = this.all * ratio / 100;
+        this.error = this.all - this.success;
+
+        localStorage.start = start;
+        localStorage.end = end;
+
+        //各区县爆破数
+        this.cityCount = [{
+          name: '水磨沟区',
+          value: parseInt(this.all * 0.21)
+        },
+        {
+          name: '天山区',
+          value: parseInt(this.all * 0.1)
+        },
+        {
+          name: '头屯河区',
+          value: parseInt(this.all * 0.105)
+        },
+        {
+          name: '乌鲁木齐县',
+          value: parseInt(this.all * 0.11)
+        },
+        {
+          name: '新市区',
+          value: parseInt(this.all * 0.08)
+        }, {
+          name: '达坂城区',
+          value: parseInt(this.all * 0.115)
+        },
+        {
+          name: '米东区',
+          value: parseInt(this.all * 0.135)
+        },
+        {
+          name: '沙依巴克区',
+          value: parseInt(this.all * 0.145)
+        }];
+
+
+        this.appName = [{
+          name: 'voxer',
+          value: parseInt(this.all * 0.18)
+        },
+        {
+          name: 'Litegram',
+          value: parseInt(this.all * 0.1)
+        },
+        {
+          name: 'Vine',
+          value: parseInt(this.all * 0.105)
+        },
+        {
+          name: 'Talkbox',
+          value: parseInt(this.all * 0.11)
+        },
+        {
+          name: 'dropbox',
+          value: parseInt(this.all * 0.08)
+        }, {
+          name: 'Zello',
+          value: parseInt(this.all * 0.115)
+        },
+        {
+          name: 'Telegram',
+          value: parseInt(this.all * 0.135)
+        },
+        {
+          name: '快牙',
+          value: parseInt(this.all * 0.175)
+        }];
+
+        this.type = [{
+          name: '木马植入',
+          value: parseInt(this.all * 0.33)
+        },
+        {
+          name: '定点爆破',
+          value: parseInt(this.all * 0.19)
+        },
+        {
+          name: '数据爬取',
+          value: parseInt(this.all * 0.31)
+        },
+        {
+          name: '钓鱼网站',
+          value: parseInt(this.all * 0.17)
+        }];
+      },
+      getRandomNumberByRange: function (start, end) {
+        return Math.floor(Math.random() * (end - start) + start)
+      },
+      initEchartTop: function () {
+        var myChart = echarts.init(document.getElementById('top'));
+
+        var option = {
+          backgroundColor: 'rgba(15,55,95,0.6)',
+          title: [{
+            text: '历史爆破总数',
+            x: 'center',
+            y: '2%',
+            textStyle: {
+              fontSize: 30,
+              color: '#fff'
+            }
+          },
+          {
+            text: this.all,
+            x: 'center',
+            y: '14%',
+            textStyle: {
+              color: '#00FFE0',
+              fontSize: 25
+            }
+          },
+          {
+            text: '各区县爆破数',
+            x: '20%',
+            y: '28%',
+            textAlign: 'center',
+            textBaseline: 'middle',
+            textStyle: {
+              fontSize: 16,
+              color: '#fff'
+            }
+          },
+          {
+            text: '主要APP爆破数',
+            x: '49.8%',
+            y: '28%',
+            textAlign: 'center',
+            textBaseline: 'middle',
+            textStyle: {
+              fontSize: 16,
+              color: '#fff'
+            }
+          },
+          {
+            text: '爆破方式',
+            x: '79.8%',
+            y: '28%',
+            textAlign: 'center',
+            textBaseline: 'middle',
+            textStyle: {
+              fontSize: 16,
+              color: '#fff'
+            }
+          }
+          ],
+          tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+          },
+          series: [
+            {
+              name: '爆破数量',
+              type: 'pie',
+              radius: '55%',
+              center: ['20%', '65%'],
+              data: this.cityCount
+                .sort(function (a, b) { return a.value - b.value; }),
+              roseType: 'radius',
+              label: {
+                normal: {
+                  textStyle: {
+                    color: 'rgba(255, 255, 255, 0.8)'
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)'
+                  },
+                  smooth: 0.2,
+                  length: 10,
+                  length2: 20
+                }
+              },
+              itemStyle: {
+                normal: {
+                  shadowBlur: 200,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              },
+              animationType: 'scale',
+              animationEasing: 'elasticOut',
+              animationDelay: function (idx) {
+                return Math.random() * 200;
+              }
+            },
+            {
+              name: 'APP爆破数量',
+              type: 'pie',
+              radius: '55%',
+              center: ['49.5%', '65%'],
+              data: this.appName
+                .sort(function (a, b) { return a.value - b.value; }),
+              roseType: 'radius',
+              label: {
+                normal: {
+                  textStyle: {
+                    color: 'rgba(255, 255, 255, 0.8)'
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)'
+                  },
+                  smooth: 0.2,
+                  length: 10,
+                  length2: 20
+                }
+              },
+              itemStyle: {
+                normal: {
+                  shadowBlur: 200,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              },
+              animationType: 'scale',
+              animationEasing: 'elasticOut',
+              animationDelay: function (idx) {
+                return Math.random() * 200;
+              }
+            },
+            {
+              name: '爆破方式',
+              type: 'pie',
+              radius: '55%',
+              center: ['79.5%', '65%'],
+              data: this.type
+                .sort(function (a, b) { return a.value - b.value; }),
+              roseType: 'radius',
+              label: {
+                normal: {
+                  textStyle: {
+                    color: 'rgba(255, 255, 255, 0.8)'
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.3)'
+                  },
+                  smooth: 0.2,
+                  length: 10,
+                  length2: 20
+                }
+              },
+              itemStyle: {
+                normal: {
+                  shadowBlur: 200,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              },
+              animationType: 'scale',
+              animationEasing: 'elasticOut',
+              animationDelay: function (idx) {
+                return Math.random() * 200;
+              }
+            }
+          ]
+        };
+
+        myChart.setOption(option);
+      },
+      getBarData() {
+        var arr = [];
+
+        for (var i = 1; i < 9; ++i) {
+          arr.push(this.getRandomNumberByRange(200, 300));
+        }
+
+        return arr;
+      },
+      initEchartBottom: function () {
+        var myChart = echarts.init(document.getElementById('bottom'));
+
+        //图表X轴数据
+        var Xdata = [];
+        for (var i = 0; i < this.cityCount.length; ++i) {
+          Xdata.push(this.cityCount[i].name);
+        }
+
+        //图表项目
+        var fp_key = ['voxer', '快牙', 'Telegram', 'dropbox'];
+        var fp_bar_postion = ["left", "left", "left", "left", "right", "right", "right", "right"];
+        var fp_coler = ['#258df6', '#6fce7d', '#fbc807', '#f5814b'];
+        //图表月份
+        var timeLineData = [];
+        for (var i = 1; i < 13; ++i) {
+          timeLineData.push(i);
+        }
+
+        var option = {
+          baseOption: {
+            backgroundColor: 'rgba(15,55,95,0.7)',
+            timeline: {
+              show: true,
+              axisType: 'category',
+              tooltip: {
+                show: true,
+                formatter: function (params) {
+                  return params.name + '月份数据统计';
+                }
+              },
+              autoPlay: true,
+              currentIndex: new Date().getMonth(),
+              playInterval: 1000,
+              label: {
+                normal: {
+                  show: true,
+                  interval: 'auto',
+                  formatter: '{value}月',
+                },
+              },
+              data: [],
+            },
+            title: {
+              textStyle: {
+                color: '#fff',
+                fontSize: 16,
+              },
+            },
+            tooltip: {
+              show: true,
+              trigger: 'axis',
+              axisPointer: {
+                type: 'shadow',
+              }
+            },
+            toolbox: {
+              show: false,
+              right: 20,
+              feature: {
+                saveAsImage: {},
+                restore: {},
+                dataView: {},
+                dataZoom: {},
+                magicType: {
+                  type: ['line', 'bar']
+                },
+              }
+            },
+            grid: [{
+              show: false,
+              left: "3%",
+              top: 60,
+              bottom: 60,
+              containLabel: true,
+              width: '45%',
+            }, {
+              show: false,
+              left: '50.5%',
+              top: 80,
+              bottom: 60,
+              width: '9%',
+            }, {
+              show: false,
+              right: "3%",
+              top: 60,
+              bottom: 60,
+              containLabel: true,
+              width: '45%',
+            },],
+
+            xAxis: [
+              {
+                max: function (value) {
+                  return value.max * 4 - 20;
+                },
+                type: 'value',
+                triggerEvent: true,
+                inverse: true,
+                axisLine: {
+                  show: false,
+                },
+                axisTick: {
+                  show: false,
+                },
+                position: 'top',
+                axisLabel: {
+                  show: true,
+                  textStyle: {
+                    color: '#B2B2B2',
+                    fontSize: 12,
+                  },
+                },
+                splitLine: {
+                  show: true,
+                  lineStyle: {
+                    color: '#1F2022',
+                    width: 1,
+                    type: 'solid',
+                  },
+                },
+              },
+              {
+                gridIndex: 1,
+                show: false,
+              },
+              {
+                max: function (value) {
+                  return value.max * 4 - 20;
+                },
+                gridIndex: 2,
+                type: 'value',
+                axisLine: {
+                  show: false,
+                },
+                axisTick: {
+                  show: false,
+                },
+                position: 'top',
+                axisLabel: {
+                  show: true,
+                  textStyle: {
+                    color: '#B2B2B2',
+                    fontSize: 12,
+                  },
+                },
+                splitLine: {
+                  show: true,
+                  lineStyle: {
+                    color: '#1F2022',
+                    width: 1,
+                    type: 'solid',
+                  },
+                },
+              }
+            ],
+            yAxis: [{
+              type: 'category',
+              inverse: true,
+              position: 'right',
+              axisLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                show: false,
+                margin: 8,
+                textStyle: {
+                  color: '#fff',
+                  fontSize: 12,
+                },
+
+              },
+              data: Xdata,
+            }, {
+              gridIndex: 1,
+              type: 'category',
+              inverse: true,
+              position: 'left',
+              axisLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                show: true,
+                textStyle: {
+                  color: '#9D9EA0',
+                  fontSize: 12,
+                },
+
+              },
+              data: Xdata.map(function (value) {
+                return {
+                  value: value,
+                  textStyle: {
+                    align: 'center',
+                  }
+                }
+              }),
+            }, {
+              gridIndex: 2,
+              type: 'category',
+              inverse: true,
+              position: 'left',
+              axisLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                show: false,
+                textStyle: {
+                  color: '#9D9EA0',
+                  fontSize: 12,
+                },
+
+              },
+              data: Xdata,
+            },],
+            series: [],
+
+          },
+          options: []
+        };
+
+        for (var i = 0; i < timeLineData.length; i++) {
+          option.baseOption.timeline.data.push(timeLineData[i]);
+          option.options.push({
+            title: {
+              x: 'center',
+              y: 30,
+              text: '乌市各区县主要APP爆破情况统计' + timeLineData[i] + '月份统计',
+            },
+            series: [{
+              name: fp_key[0],
+              type: 'bar',
+              stack: 'one',
+              barGap: 15,
+              barWidth: 15,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 12
+                  },
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[0]
+                  },
+                  opacity: 1,
+
+                },
+                emphasis: {
+                  opacity: 1,
+                }
+              },
+              data: this.getBarData()
+            },
+
+            {
+              name: fp_key[1],
+              type: 'bar',
+              stack: 'one',
+              barGap: 15,
+              barWidth: 15,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 12
+                  },
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[1]
+                  },
+                  opacity: 1
+                },
+                emphasis: {
+                  opacity: 1
+                },
+              },
+              data: this.getBarData()
+            },
+
+            {
+              name: fp_key[2],
+              stack: 'one',
+              type: 'bar',
+              barGap: 15,
+              barWidth: 15,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside'
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[2]
+                  },
+                  opacity: 1
+                },
+                emphasis: {
+                  opacity: 1
+                },
+              },
+              data: this.getBarData(),
+            },
+            {
+              name: fp_key[3],
+              stack: 'one',
+              type: 'bar',
+              barGap: 15,
+              barWidth: 15,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside'
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[3]
+                  },
+                  opacity: 1
+                },
+                emphasis: {
+                  opacity: 1
+                },
+              },
+              data: this.getBarData()
+            },
+            {
+              name: fp_key[0],
+              stack: 'right',
+              type: 'bar',
+              barGap: 15,
+              barWidth: 15,
+              xAxisIndex: 2,
+              yAxisIndex: 2,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside'
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[0]
+                  },
+                  opacity: 1
+                },
+                emphasis: {
+                  opacity: 1
+                }
+              },
+              data: this.getBarData(),
+            },
+            {
+              name: fp_key[1],
+              stack: 'right',
+              type: 'bar',
+              barGap: 15,
+              barWidth: 15,
+              xAxisIndex: 2,
+              yAxisIndex: 2,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 12
+                  },
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[1]
+                  },
+                  opacity: 1
+                },
+                emphasis: {
+                  opacity: 1
+                }
+              },
+              data: this.getBarData(),
+            },
+            {
+              name: fp_key[2],
+              stack: 'right',
+              type: 'bar',
+              barGap: 15,
+              barWidth: 15,
+              xAxisIndex: 2,
+              yAxisIndex: 2,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 12
+                  }
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[2]
+                  },
+                  opacity: 1
+                },
+                emphasis: {
+                  opacity: 1
+                }
+              },
+              data: this.getBarData(),
+            },
+            {
+              name: fp_key[3],
+              stack: 'right',
+              type: 'bar',
+              barGap: 15,
+              barWidth: 15,
+              xAxisIndex: 2,
+              yAxisIndex: 2,
+              label: {
+                normal: {
+                  show: true,
+                  position: 'inside',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 12
+                  }
+                },
+                emphasis: {
+                  show: true,
+                  position: 'inside',
+                  offset: [0, 0],
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 14
+                  }
+                }
+              },
+              itemStyle: {
+                normal: {
+                  color: function (params) {
+                    return fp_coler[3]
+                  },
+                  opacity: 1
+                },
+                emphasis: {
+                  opacity: 1
+                }
+              },
+              data: this.getBarData()
+            }
+            ]
+          });
+        }
+
+        myChart.setOption(option);
+      },
+      initEchartBottomRight: function () {
+        var category = [],
+          lineData = [],
+          barData = [],
+          myChart = echarts.init(document.getElementById('bottomRight'));
+
+        for (var i = 0; i < 14; i++) {
+          category.unshift(new Date(new Date()
+            .setDate(new Date().getDate() - i))
+            .toLocaleDateString().replace(/\//g, '-'))
+          var b = Math.floor(Math.random() * 20);
+          var d = Math.floor(Math.random() * 200);
+          barData.push(b)
+          lineData.push(d + b);
+        }
+
+        var option = {
+          backgroundColor: 'rgba(15,55,95,0.6)',
+          title: {
+            x: 'center',
+            y: 30,
+            text: '爆破成功数和失败数对比',
+            textStyle: {
+              color: '#fff'
+            }
+          },
+          tooltip: {
+            trigger: 'item',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+          xAxis: {
+            data: category,
+            axisLine: {
+              lineStyle: {
+                color: '#ccc'
+              }
+            }
+          },
+          yAxis: {
+            splitLine: { show: false },
+            axisLine: {
+              lineStyle: {
+                color: '#ccc'
+              }
+            }
+          },
+          series: [{
+            name: '爆破成功',
+            type: 'line',
+            smooth: true,
+            showAllSymbol: true,
+            symbol: 'emptyCircle',
+            symbolSize: 15,
+            data: lineData
+          }, {
+            name: '爆破失败',
+            type: 'bar',
+            barWidth: 10,
+            itemStyle: {
+              normal: {
+                barBorderRadius: 5,
+                color: new echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    { offset: 0, color: '#14c8d4' },
+                    { offset: 1, color: '#43eec6' }
+                  ]
+                )
+              }
+            },
+            data: barData
+          }, {
+            name: '爆破成功',
+            type: 'bar',
+            barGap: '-100%',
+            barWidth: 10,
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [
+                    { offset: 0, color: 'rgba(20,200,212,0.5)' },
+                    { offset: 0.2, color: 'rgba(20,200,212,0.2)' },
+                    { offset: 1, color: 'rgba(20,200,212,0)' }
+                  ]
+                )
+              }
+            },
+            z: -12,
+            data: lineData
+          }, {
+            name: '爆破成功',
+            type: 'pictorialBar',
+            symbol: 'rect',
+            itemStyle: {
+              normal: {
+                color: '#0f375f'
+              }
+            },
+            symbolRepeat: true,
+            symbolSize: [12, 4],
+            symbolMargin: 1,
+            z: -10,
+            data: lineData
+          }]
+        };
+
+        myChart.setOption(option);
+      }
+    }
+  })
+</script>
+
+</html>

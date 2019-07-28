@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>首页</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+    }
+
+    #app {
+      background: url('images/bg.jpg') no-repeat;
+      background-size: 100% 100%;
+      height: 100%;
+      display: flex;
+      padding: 10px;
+    }
+
+    #left {
+      width: 600px;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #left>ul {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      height: 100%;
+      position: absolute;
+      z-index: 100;
+    }
+
+    #myCanvas {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+      border-radius: 10px;
+    }
+
+    #left li {
+      color: #ffffff;
+      height: 5%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+
+    #right {
+      flex: 1;
+      padding-left: 10px;
+    }
+
+    #right canvas {
+      border-radius: 10px;
+    }
+
+    #topEchart,
+    #bottomEchart {
+      height: 50%;
+    }
+
+    .success {
+      color: #8cc474;
+    }
+
+    .error {
+      color: #ff0000;
+    }
+
+    .date {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="left">
+      <canvas id="myCanvas"></canvas>
+      <ul></ul>
+    </div>
+    <div id="right">
+    </div>
+  </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/echarts-gl.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      index: 0,
+      timer: null,
+      appName: ['voxer', '快牙', 'Telegram', 'Talkbox', 'Zello', 'dropbox', 'Litegram', 'Vine']
+    },
+    mounted: function () {
+      var _this = this;
+
+      this.canvas();
+      this.timer = setInterval(function () {
+        _this.createdList()
+      }, 1000);
+
+      this.initEchart();
+    },
+    methods: {
+      createdList: function () {
+        $('#left ul').append(this.getInfo());
+
+        this.index++;
+        if (this.index % 20 === 0) {
+          clearInterval(this.timer);
+
+          var _this = this;
+          setTimeout(function () {
+            $('#left ul').empty();
+            _this.timer = setInterval(function () {
+              _this.createdList()
+            }, 1000);
+          }, 999)
+
+        }
+      },
+      getInfo: function () {
+        var className = [{
+          class: 'success',
+          info: '密码爆破成功!'
+        }, {
+          class: 'success',
+          info: '密码爆破成功!'
+        }, {
+          class: 'success',
+          info: '密码爆破成功!'
+        }, {
+          class: 'error',
+          info: '密码爆破失败!'
+        }],
+          classNameNum = this.getRandomNumberByRange(0, 4),
+          appNameNum = this.getRandomNumberByRange(0, 8);
+
+        return `<li>
+                  <div class="${className[classNameNum].class}">${this.appName[appNameNum] + className[classNameNum].info}</div>
+                  <div class="date">爆破时间 : ${this.getDate()}</div>
+                </li>`;
+      },
+      initEchart: function () {
+        var _this = this;
+
+        $.getJSON('js/650100.json', function (json) {
+          var myChart = echarts.init(document.getElementById('right'));
+          var colors = [
+            ["#1DE9B6", "#F46E36", "#04B9FF", "#5DBD32", "#FFC809", "#FB95D5", "#BDA29A", "#6E7074", "#546570", "#C4CCD3"],
+            ["#37A2DA", "#67E0E3", "#32C5E9", "#9FE6B8", "#FFDB5C", "#FF9F7F", "#FB7293", "#E062AE", "#E690D1", "#E7BCF3", "#9D96F5", "#8378EA", "#8378EA"],
+            ["#DD6B66", "#759AA0", "#E69D87", "#8DC1A9", "#EA7E53", "#EEDD78", "#73A373", "#73B9BC", "#7289AB", "#91CA8C", "#F49F42"],
+          ];
+          var colorIndex = 0;
+          var geoCoordMap = {
+            '水磨沟区': [87.65, 43.8413259101563],
+            '天山区': [87.65, 43.75],
+            '头屯河区': [87.35, 43.9553670478516],
+            '乌鲁木齐县': [87.3, 43.4],
+            '新市区': [87.52, 43.9],
+            '达坂城区': [88.4, 43.5],
+            '米东区': [87.7, 44.153843],
+            '沙依巴克区': [87.45, 43.65]
+          };
+          var xData = [];
+          for (var i = 0; i < 7; i++) {
+            xData.unshift(new Date(new Date()
+              .setDate(new Date().getDate() - i))
+              .toLocaleDateString().replace(/\//g, '-'))
+            var b = Math.floor(Math.random() * 20);
+            var d = Math.floor(Math.random() * 200);
+          }
+          var mapData = [[], [], [], [], [], [], []];
+
+          /*柱子Y名称*/
+          var barData = [];
+          for (var key in geoCoordMap) {
+            mapData[0].push({ "day": xData[0], "name": key, "value": _this.getRandomNumberByRange(200, 300) });
+            mapData[1].push({ "day": xData[1], "name": key, "value": _this.getRandomNumberByRange(200, 300) });
+            mapData[2].push({ "day": xData[2], "name": key, "value": _this.getRandomNumberByRange(200, 300) });
+            mapData[3].push({ "day": xData[3], "name": key, "value": _this.getRandomNumberByRange(200, 300) });
+            mapData[4].push({ "day": xData[4], "name": key, "value": _this.getRandomNumberByRange(200, 300) });
+            mapData[5].push({ "day": xData[5], "name": key, "value": _this.getRandomNumberByRange(200, 300) });
+            mapData[6].push({ "day": xData[6], "name": key, "value": _this.getRandomNumberByRange(200, 300) });
+          }
+          for (var i = 0; i < mapData.length; i++) {
+            barData.push([]);
+            for (var j = 0; j < mapData[i].length; j++) {
+              barData[i].push(mapData[i][j].value)
+            }
+          }
+
+          echarts.registerMap('city', json);
+
+          var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+              var geoCoord = geoCoordMap[data[i].name];
+              if (geoCoord) {
+                res.push({
+                  name: data[i].name,
+                  value: geoCoord.concat(data[i].value)
+                });
+              }
+            }
+            return res;
+          };
+
+          var convertToLineData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+              var dataItem = data[i];
+              var fromCoord = geoCoordMap[dataItem.name];
+              var toCoord = [87.65, 43.8413259101563];//汇聚中心
+              if (fromCoord && toCoord) {
+                res.push([{
+                  coord: fromCoord,
+                  value: dataItem.value
+                }, {
+                  coord: toCoord,
+                }]);
+              }
+            }
+            return res;
+          }
+
+          var option = {
+            options: [],
+            timeline: {
+              data: xData,
+              axisType: 'category',
+              autoPlay: true,
+              playInterval: 3000,
+              left: '10%',
+              right: '10%',
+              bottom: '3%',
+              eidth: '80%',
+              //  height: null,
+              label: {
+                normal: {
+                  textStyle: {
+                    color: '#ddd'
+                  }
+                },
+                emphasis: {
+                  textStyle: {
+                    color: '#fff'
+                  }
+                }
+              },
+              symbolSize: 10,
+              lineStyle: {
+                color: '#555'
+              },
+              checkpointStyle: {
+                borderColor: '#777',
+                borderWidth: 2
+              },
+              controlStyle: {
+                showNextBtn: true,
+                showPrevBtn: true,
+                normal: {
+                  color: '#666',
+                  borderColor: '#666'
+                },
+                emphasis: {
+                  color: '#aaa',
+                  borderColor: '#aaa'
+                }
+              },
+
+            },
+            baseOption: {
+              animation: true,
+              animationDuration: 1000,
+              animationEasing: 'cubicInOut',
+              animationDurationUpdate: 1000,
+              animationEasingUpdate: 'cubicInOut',
+              grid: {
+                right: '5%',
+                top: '15%',
+                bottom: '10%',
+                width: '20%'
+              },
+              tooltip: {
+                trigger: 'axis', // hover触发器
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                  type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                  shadowStyle: {
+                    color: 'rgba(150,150,150,0.1)' //hover颜色
+                  }
+                }
+              },
+              geo: {
+                show: true,
+                map: 'city',
+                roam: true,
+                zoom: 1.1,
+                center: [88.7, 43.8138430000001],
+                label: {
+                  emphasis: {
+                    show: false
+                  }
+                },
+                itemStyle: {
+                  normal: {
+                    borderColor: 'rgba(147, 235, 248, 1)',
+                    borderWidth: 1,
+                    areaColor: {
+                      type: 'radial',
+                      x: 0.5,
+                      y: 0.5,
+                      r: 0.8,
+                      colorStops: [{
+                        offset: 0,
+                        color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+                      }, {
+                        offset: 1,
+                        color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+                      }],
+                      globalCoord: false // 缺省为 false
+                    },
+                    shadowColor: 'rgba(128, 217, 248, 1)',
+                    shadowOffsetX: -2,
+                    shadowOffsetY: 2,
+                    shadowBlur: 10
+                  },
+                  emphasis: {
+                    areaColor: '#389BB7',
+                    borderWidth: 0
+                  }
+                }
+              },
+            },
+          }
+          for (var n = 0; n < xData.length; n++) {
+            option.options.push({
+              backgroundColor: 'rgba(20,32,55,0.7)',
+              title: [
+                {
+                  id: 'statistic',
+                  text: xData[n] + "日爆破统计情况",
+                  left: '70%',
+                  top: '8%',
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 30
+                  }
+                }
+              ],
+              xAxis: {
+                type: 'value',
+                scale: true,
+                position: 'top',
+                min: 0,
+                boundaryGap: false,
+                splitLine: {
+                  show: false
+                },
+                axisLine: {
+                  show: false
+                },
+                axisTick: {
+                  show: false
+                },
+                axisLabel: {
+                  margin: 2,
+                  textStyle: {
+                    color: '#aaa'
+                  }
+                },
+              },
+              yAxis: {
+                type: 'category',
+                nameGap: 16,
+                axisLine: {
+                  show: true,
+                  lineStyle: {
+                    color: '#ddd'
+                  }
+                },
+                axisTick: {
+                  show: false,
+                  lineStyle: {
+                    color: '#ddd'
+                  }
+                },
+                axisLabel: {
+                  interval: 0,
+                  textStyle: {
+                    color: '#ddd'
+                  }
+                },
+                data: _this.appName
+              },
+              series: [
+                {
+                  type: 'map',
+                  map: 'city',
+                  geoIndex: 0,
+                  aspectScale: 0.75, //长宽比
+                  showLegendSymbol: false, // 存在legend时显示
+                  label: {
+                    normal: {
+                      show: false
+                    },
+                    emphasis: {
+                      show: false,
+                      textStyle: {
+                        color: '#fff'
+                      }
+                    }
+                  },
+                  roam: true,
+                  itemStyle: {
+                    normal: {
+                      areaColor: '#031525',
+                      borderColor: '#FFFFFF',
+                    },
+                    emphasis: {
+                      areaColor: '#2B91B7'
+                    }
+                  },
+                  animation: false,
+                  data: mapData
+                },
+                {
+                  type: 'effectScatter',
+                  coordinateSystem: 'geo',
+                  data: convertData(mapData[n].sort(function (a, b) {
+                    return b.value - a.value;
+                  }).slice(0, 20)),
+                  symbolSize: function (val) {
+                    return val[2] / 10;
+                  },
+                  showEffectOn: 'render',
+                  rippleEffect: {
+                    brushType: 'stroke'
+                  },
+                  hoverAnimation: true,
+                  label: {
+                    normal: {
+                      formatter: '{b}',
+                      position: 'right',
+                      show: true
+                    }
+                  },
+                  itemStyle: {
+                    normal: {
+                      color: colors[colorIndex][n],
+                      shadowBlur: 10,
+                      shadowColor: colors[colorIndex][n]
+                    }
+                  },
+                  zlevel: 1
+                },
+                {
+                  type: 'lines',
+                  zlevel: 2,
+                  effect: {
+                    show: true,
+                    period: 4, //箭头指向速度，值越小速度越快
+                    trailLength: 0.02, //特效尾迹长度[0,1]值越大，尾迹越长重
+                    symbol: 'arrow', //箭头图标
+                    symbolSize: 5, //图标大小
+                  },
+                  lineStyle: {
+                    normal: {
+                      color: colors[colorIndex][n],
+                      width: 1, //尾迹线条宽度
+                      opacity: 1, //尾迹线条透明度
+                      curveness: .3 //尾迹线条曲直度
+                    }
+                  },
+                  data: convertToLineData(mapData[n])
+                },
+                {
+                  zlevel: 1.5,
+                  type: 'bar',
+                  symbol: 'none',
+                  itemStyle: {
+                    normal: {
+                      color: colors[colorIndex][n]
+                    }
+                  },
+                  data: barData[n]
+                }
+              ]
+            })
+          }
+
+          myChart.setOption(option);
+        });
+      },
+      getDate: function (index) {
+        var num = Math.floor(Math.random() * 10),
+          year = new Date().getFullYear(),
+          month = (new Date().getMonth() + 1).toString().length === 1 ? '0' + (+new Date().getMonth() + 1) : new Date().getMonth() + 1,
+          day = new Date().getDay().toString().length === 1 ? '0' + +new Date().getDay() : new Date().getDay(),
+          hour = new Date().getHours().toString().length === 1 ? '0' + +new Date().getHours() : new Date().getHours(),
+          minutes = (new Date().getMinutes() + num).toString().length === 1 ? '0' + +new Date().getMinutes() : new Date().getMinutes() + num,
+          seconds = new Date().getSeconds().toString().length === 1 ? '0' + +new Date().getSeconds() : new Date().getSeconds();
+        return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
+      },
+      getRandomNumberByRange: function (start, end) {
+        return Math.floor(Math.random() * (end - start) + start)
+      },
+      canvas: function () {
+        var YPositions = Array(51).join(0).split('');
+        /*
+            join() 方法用于把数组中的所有元素放入一个字符串
+            split() 方法用于把一个字符串分割成字符串数组
+        */
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        var draw = function () {
+          ctx.fillStyle = 'rgba(0,0,0,.05)';
+          ctx.fillRect(0, 0, 500, 500); ctx.fillStyle = "#8cc474";
+          YPositions.map(function (y, index) {
+            /*
+                map() 把每个元素通过函数传递到当前匹配集合中，生成包含返回值的新的 jQuery 对象
+            */
+            x = (index * 15);
+            ctx.fillText(parseInt(Math.random() * 10), x, y);
+            /*
+                在(x,y)坐标位产生一个'a'字符
+                index为Ypositions的下标
+            */
+            if (y > 500) {
+              YPositions[index] = 0;
+            } else {
+              YPositions[index] = y + 10;
+            }
+            /* 
+                如果新产生的字符已经到了<canvas>的辩解
+                那么就使产生下一个新字符的位置回归到原点
+             */
+          });
+        };
+        setInterval(draw, 50);
+      }
+    }
+  })
+</script>
+
+</html>
