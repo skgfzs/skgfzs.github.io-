@@ -76,7 +76,7 @@ html,body {
 }
 #code span {
   display: inline-block;
-  padding-bottom: 3px;
+  padding-bottom: 5px;
 }
 #code .string {
   color: #2a36ff
@@ -122,5 +122,5 @@ html,body {
   overflow: hidden;
   display: inline-block;
   position: relative;
-  bottom: 2px;
+  bottom: 5px;
 }
