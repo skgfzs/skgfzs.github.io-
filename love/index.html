@@ -7,7 +7,6 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Hello Darling</title>
 	<link rel="stylesheet" href="default.css">
-
 </head>
 
 <body>
@@ -15,7 +14,7 @@
 	<!-- <iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe> -->
 
 	<div id="mainDiv">
-		<div id="content" style="width: 1110px; height: 625px; margin-top: 156px; margin-left: 405px;">
+		<div id="content">
 			<div id="code">
 				<span class="comments">/**</span>
 				<br>
@@ -51,7 +50,6 @@
 				<span class="keyword">嘿嘿嘿</span>
 				<br>
 
-
 				<span>之后的几天和<span class="keyword">亲爱的</span>聊了许多 慢慢地有点了解了.</span><br>
 
 				<span class="comments">嗯..6.11号终于见到<span class="keyword">亲爱的</span>啦.</span>
@@ -60,33 +58,41 @@
 				</svg>
 				<br>
 
-				<span>感觉比照片中成熟一点点. 不过还是一样可爱啦.</span>
-				<br>
-
-				<span class="comments">感觉第一次见面还是挺自然的吧 没有那么多尴尬啦.</span>
+				<span>感觉<span class="keyword">亲爱的</span>比照片中成熟一点点. 不过还是一样可爱啦.</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 20px;">
 					<use xlink:href="#icon-haixiu1"></use>
 				</svg>
 				<br>
 
-				<span class="placeholder">
-					<span class="comments">// Whether it is right now</span>
-					<br>
-					<span class="placeholder">
-						<span class="comments">// Still in the distant future.</span>
-						<br>
-						<span class="placeholder">
-							The boy has but one dream;<br>
-							<span class="comments">// The boy wants the girl could well have been
-								happy.</span>
-							<br>
-							<br>
-							<br>
-							I want to say:<br>
-							Baby, I love you forever;<br>
-						</span>
-					</span>
-				</span>
+				<span class="comments">嗯...第一次见面还是挺顺利的吧 没有那么多尴尬啦.</span>
+				<br>
+
+				<span>之后和<span class="keyword">亲爱的</span>见面也越来越频繁了,感觉挺喜欢的</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 30px;">
+					<use xlink:href="#icon-haixiu3"></use>
+				</svg>
+				<br>
+
+				<span class="comments">感觉自己也没有什么优势吧,只能努力对<span class="keyword">亲爱的</span>好一点</span>
+				<br>
+
+				<span>想起那天<span class="keyword">亲爱的</span>说自己是单亲家庭,那一刻真的很心疼</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
+					<use xlink:href="#icon-hug"></use>
+				</svg>
+				<br>
+
+				<span class="comments">虽然不知道是什么原因造成的</span>
+				<br>
+
+				<span>可是那一刻我觉得我要加倍对你好,这样才能让你感受到温暖</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
+					<use xlink:href="#icon-icon-test"></use>
+				</svg>
+				<br>
+
+				I want to say:<br>
+				Baby, I love you forever;<br>
 			</div>
 			<div id="loveHeart">
 				<canvas id="garden" width="670" height="625"></canvas>
@@ -148,9 +154,6 @@
 
 		$("#content").css("width", $loveHeart.width() + $("#code").width());
 		$("#content").css("height", Math.max($loveHeart.height(), $("#code").height()));
-		$("#content").css("margin-top", Math.max(($window.height() - $("#content").height()) / 2, 10));
-		$("#content").css("margin-left", Math.max(($window.width() - $("#content").width()) / 2, 10));
-
 
 		setTimeout(function () {
 			startHeartAnimation();
@@ -161,7 +164,6 @@
 			timeElapse(together);
 		}, 500);
 
-		adjustCodePosition();
 		// $("#code").typewriter();
 
 		// renderLoop
