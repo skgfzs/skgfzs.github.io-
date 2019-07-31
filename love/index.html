@@ -10,8 +10,8 @@
 </head>
 
 <body>
-	<!-- <audio id="music" src="love.mp3" controls autoplay preload="auto" style="display: none;" loop></audio> -->
-	<!-- <iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe> -->
+	<audio id="music" src="love.mp3" controls autoplay preload="auto" style="display: none;" loop></audio>
+	<iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe>
 
 	<div id="mainDiv">
 		<div id="content">
@@ -20,7 +20,7 @@
 				<br>
 				<span class="comments">** 2019—7-4</span>
 				<br>
-				 ** <span class="comments" id="nowDate"></span>
+				** <span class="comments" id="nowDate"></span>
 				<br>
 				<span class="comments">**/</span> <br><br>
 
@@ -30,7 +30,7 @@
 
 				<span><span class="keyword">亲爱的</span>,我们在一起一个月啦;</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 22px;">
-					<use xlink:href="#icon-xiaolian"></use>
+					<use xlink:href="#icon-qinqin"></use>
 				</svg>
 				<br>
 
@@ -45,7 +45,7 @@
 				<span>我还在想<span class="keyword">亲爱的</span>是怎么看上我的.</span><br>
 				<span class="comments">可能是感觉我人比较好吧</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 22px;">
-					<use xlink:href="#icon-haixiu"></use>
+					<use xlink:href="#icon-haixiu2"></use>
 				</svg>
 				<span class="keyword">嘿嘿嘿</span>
 				<br>
@@ -65,15 +65,18 @@
 				<br>
 
 				<span class="comments">嗯...第一次见面还是挺顺利的吧 没有那么多尴尬啦.</span>
-				<br>
-
-				<span>之后和<span class="keyword">亲爱的</span>见面也越来越频繁了,感觉挺喜欢的</span>
-				<svg class="icon" aria-hidden="true" style="font-size: 30px;">
-					<use xlink:href="#icon-haixiu3"></use>
+				<svg class="icon" aria-hidden="true" style="font-size: 24px;">
+					<use xlink:href="#icon-xiaolian-"></use>
 				</svg>
 				<br>
 
+				<span>之后和<span class="keyword">亲爱的</span>见面也越来越频繁了,感觉挺喜欢的</span>
+				<br>
+
 				<span class="comments">感觉自己也没有什么优势吧,只能努力对<span class="keyword">亲爱的</span>好一点</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 24px;">
+					<use xlink:href="#icon-haixiu3"></use>
+				</svg>
 				<br>
 
 				<span>想起那天<span class="keyword">亲爱的</span>说自己是单亲家庭,那一刻真的很心疼</span>
@@ -82,17 +85,41 @@
 				</svg>
 				<br>
 
-				<span class="comments">虽然不知道是什么原因造成的</span>
-				<br>
-
-				<span>可是那一刻我觉得我要加倍对你好,这样才能让你感受到温暖</span>
+				<span class="comments">可是那一刻我觉得我要加倍对你好,这样才能让你感受到温暖</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
-					<use xlink:href="#icon-icon-test"></use>
+					<use xlink:href="#icon-keai"></use>
 				</svg>
 				<br>
 
-				I want to say:<br>
-				Baby, I love you forever;<br>
+				<span>之后的日子里,感情也越来越好,还拉手亲亲抱抱了</span>
+				<br>
+
+				<span class="comments">我们一起做饭 去游乐园 还做了很多以前没做过的事情</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
+					<use xlink:href="#icon-se"></use>
+				</svg>
+				<br>
+
+				<span style="padding-top: 10px;">和<span class="keyword">亲爱的</span>在一起很开心 很幸福 想一直这么下去</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 26px;top:5px;">
+					<use xlink:href="#icon-019"></use>
+				</svg>
+				<br>
+
+				<span class="comments"><span class="keyword">亲爱的</span>,遇见你真好,我会好好努力,好好珍惜你的</span>
+				<br>
+
+				<span>希望我们可以一直走下去,直到最后,好爱你</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
+					<use xlink:href="#icon-biaoqing-momoda"></use>
+				</svg>
+				<br>
+
+				<span class="comments">I want to say:</span><br>
+				<span class="comments">Baby, I love you forever;</span>
+				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
+					<use xlink:href="#icon-qinqin1"></use>
+				</svg>
 			</div>
 			<div id="loveHeart">
 				<canvas id="garden" width="670" height="625"></canvas>
@@ -110,7 +137,7 @@
 					</div>
 					<div id="loveu">
 						爱你直到永永远远。<br>
-						<div class="signature">你的麦芽糖</div>
+						<div class="signature">—— 你的麦芽糖</div>
 					</div>
 				</div>
 			</div>
@@ -125,21 +152,21 @@
 
 		var together = new Date(2019, 6, 4, 21, 32, 0);
 
-		// if (!IsPC()) {
-		// 	var music = document.getElementById("music");
+		if (!IsPC()) {
+			var music = document.getElementById("music");
 
-		// 	//	移动端自动播放
-		// 	document.addEventListener("touchstart", function (e) {
-		// 		music.play();
-		// 	}, false);
-		// 	//	兼容微信浏览器自动播放
-		// 	document.addEventListener("WeixinJSBridgeReady", function () {
-		// 		audio.play();
-		// 	}, false);
+			//	移动端自动播放
+			document.addEventListener("touchstart", function (e) {
+				music.play();
+			}, false);
+			//	兼容微信浏览器自动播放
+			document.addEventListener("WeixinJSBridgeReady", function () {
+				audio.play();
+			}, false);
 
-		// 	window.webView && (window.webView.mediaPlaybackRequiresUserAction = NO);
-		// 	window.mWebview && (window.mWebview.getSettings().setMediaPlaybackRequiresUserGesture(false));
-		// }
+			window.webView && (window.webView.mediaPlaybackRequiresUserAction = NO);
+			window.mWebview && (window.mWebview.getSettings().setMediaPlaybackRequiresUserGesture(false));
+		}
 
 
 		// setup garden
@@ -164,7 +191,7 @@
 			timeElapse(together);
 		}, 500);
 
-		// $("#code").typewriter();
+		$("#code").typewriter();
 
 		// renderLoop
 		setInterval(function () {
