@@ -50,6 +50,7 @@ function startHeartAnimation() {
 (function ($) {
 	$.fn.typewriter = function () {
 		$('#code').show();
+
 		this.each(function () {
 			var $ele = $(this), str = $ele.html(), progress = 0;
 			$ele.html('');

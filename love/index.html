@@ -10,8 +10,8 @@
 </head>
 
 <body>
-	<audio id="music" src="love.mp3" controls preload="auto" autoplay style="display: none;" loop></audio>
-	<!-- <iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe> -->
+	<audio id="music" src="love.mp3" controls preload="auto" style="display: none;" loop></audio>
+	<iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe>
 
 	<div id="mainDiv">
 		<div id="content">
@@ -28,7 +28,7 @@
 
 				<span>Girl name = <span class="keyword">Mrs</span> MA</span><br>
 
-				<span class="comments"><span class="keyword">亲爱的</span>,我们在一起一个月啦;</span>
+				<span class="comments"><span class="keyword">亲爱的大(小)老婆</span>,我们在一起一个月啦;</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 22px;">
 					<use xlink:href="#icon-qinqin"></use>
 				</svg>
@@ -79,7 +79,7 @@
 				</svg>
 				<br>
 
-				<span>想起那天<span class="keyword">亲爱的</span>说自己是单亲家庭,那一刻真的很心疼</span>
+				<span>想起那天<span class="keyword">亲爱的</span>说自己是单亲家庭,真的觉得很心疼</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
 					<use xlink:href="#icon-hug"></use>
 				</svg>
@@ -91,7 +91,7 @@
 				</svg>
 				<br>
 
-				<span>之后的日子里,感情也越来越好,还拉手亲亲抱抱了</span>
+				<span>之后的日子里,感情也越来越好了,还拉手亲亲抱抱了</span>
 				<br>
 
 				<span class="comments">我们一起做饭 去游乐园 还做了很多以前没做过的事情</span>
@@ -106,13 +106,16 @@
 				</svg>
 				<br>
 
-				<span class="comments"><span class="keyword">亲爱的</span>,遇见你真好,我会好好努力,好好珍惜你的</span>
+				<span class="comments"><span class="keyword">亲爱的</span>,遇见你真好,我会好好珍惜你的</span>
 				<br>
 
-				<span>希望我们可以一直走下去,直到最后,好爱你</span>
+				<span>我也有很多缺点,我会好好改正的不能给你丢人</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 26px;">
-					<use xlink:href="#icon-biaoqing-momoda"></use>
+					<use xlink:href="#icon-xiaolian9"></use>
 				</svg>
+				<br>
+
+				<span class="comments">希望我们可以一直走下去,直到最后,好爱你</span>
 				<br>
 
 				<span class="comments">I want to say:</span><br>
@@ -126,18 +129,15 @@
 				<div id="words">
 					<div id="messages">
 						亲爱的，这是我们相爱在一起的时光。
-
-						<div id="elapseClock">
-							<span class="digit">2301</span>
-							days <span class="digit">14</span>
-							hours <span class="digit">51</span>
-							minutes <span class="digit">44</span>
-							seconds
-						</div>
+						<div id="elapseClock"></div>
 					</div>
 					<div id="loveu">
 						爱你直到永永远远。<br>
-						<div class="signature">—— 你的麦芽糖</div>
+						<div class="signature">—— 你的麦芽糖
+							<svg class="icon" aria-hidden="true" style="font-size: 26px;bottom:-2px;">
+								<use xlink:href="#icon-biaoqing-momoda"></use>
+							</svg>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -191,7 +191,7 @@
 			timeElapse(together);
 		}, 500);
 
-		$("#code").typewriter(); 1
+		$("#code").typewriter();
 
 		// renderLoop
 		setInterval(function () {
