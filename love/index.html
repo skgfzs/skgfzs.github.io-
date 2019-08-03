@@ -10,8 +10,8 @@
 </head>
 
 <body>
-	<audio id="music" src="love.mp3" controls preload="auto" style="display: none;" loop></audio>
-	<iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe>
+	<audio id="music" src="love.mp3" controls preload="auto" autoplay style="display: none;" loop></audio>
+	<!-- <iframe allow="autoplay" src="love.mp3" style="display: none;"></iframe> -->
 
 	<div id="mainDiv">
 		<div id="content">
@@ -28,15 +28,15 @@
 
 				<span>Girl name = <span class="keyword">Mrs</span> MA</span><br>
 
-				<span><span class="keyword">亲爱的</span>,我们在一起一个月啦;</span>
+				<span class="comments"><span class="keyword">亲爱的</span>,我们在一起一个月啦;</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 22px;">
 					<use xlink:href="#icon-qinqin"></use>
 				</svg>
 				<br>
 
-				<span class="comments">记得6.5号刚刚认识<span class="keyword">亲爱的</span>.</span><br>
+				<span>记得6.5号刚刚认识<span class="keyword">亲爱的</span>.</span><br>
 
-				<span>看了<span class="keyword">亲爱的</span>照片感觉好漂亮 好可爱哦.</span>
+				<span class="comments">看了<span class="keyword">亲爱的</span>照片感觉好漂亮 好可爱哦.</span>
 				<svg class="icon" aria-hidden="true" style="font-size: 22px;">
 					<use xlink:href="#icon-xiaolian5"></use>
 				</svg>
@@ -191,7 +191,7 @@
 			timeElapse(together);
 		}, 500);
 
-		$("#code").typewriter();
+		$("#code").typewriter(); 1
 
 		// renderLoop
 		setInterval(function () {

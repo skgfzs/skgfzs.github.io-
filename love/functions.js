@@ -12,14 +12,14 @@ $(window).resize(function () {
 	}
 });
 
-function getHeartPoint (angle) {
+function getHeartPoint(angle) {
 	var t = angle / Math.PI;
 	var x = 19.5 * (16 * Math.pow(Math.sin(t), 3));
 	var y = - 20 * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
 	return new Array(offsetX + x, offsetY + y);
 }
 
-function startHeartAnimation () {
+function startHeartAnimation() {
 	var interval = 50;
 	var angle = 10;
 	var heart = new Array();
@@ -49,6 +49,7 @@ function startHeartAnimation () {
 
 (function ($) {
 	$.fn.typewriter = function () {
+		$('#code').show();
 		this.each(function () {
 			var $ele = $(this), str = $ele.html(), progress = 0;
 			$ele.html('');
@@ -63,13 +64,13 @@ function startHeartAnimation () {
 				if (progress >= str.length) {
 					clearInterval(timer);
 				}
-			}, 75);
+			}, 50);
 		});
 		return this;
 	};
 })(jQuery);
 
-function timeElapse (date) {
+function timeElapse(date) {
 	var current = Date();
 	var seconds = (Date.parse(current) - Date.parse(date)) / 1000;
 	var days = Math.floor(seconds / (3600 * 24));
@@ -91,24 +92,24 @@ function timeElapse (date) {
 	$("#elapseClock").html(result);
 }
 
-function showMessages () {
+function showMessages() {
 	adjustWordsPosition();
 	$('#messages').fadeIn(5000, function () {
 		showLoveU();
 	});
 }
 
-function adjustWordsPosition () {
+function adjustWordsPosition() {
 	$('#words').css("position", "absolute");
 	$('#words').css("top", $("#garden").position().top + 195);
 	$('#words').css("left", $("#garden").position().left + 70);
 }
 
-function showLoveU () {
+function showLoveU() {
 	$('#loveu').fadeIn(3000);
 }
 
-function IsPC () {
+function IsPC() {
 	var userAgentInfo = navigator.userAgent;
 	var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
 	var flag = true;
@@ -118,7 +119,7 @@ function IsPC () {
 	return flag;
 }
 
-function initDate () {
+function initDate() {
 	var date = new Date().toLocaleDateString().replace(/\//g, '-');
 
 	$('#nowDate').html(date);
